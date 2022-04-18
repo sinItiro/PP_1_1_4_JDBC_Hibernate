@@ -15,15 +15,14 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        String query = "CREATE TABLE IF NOT EXISTS users (" +
-                "  id INT PRIMARY KEY AUTO_INCREMENT," +
-                "  name VARCHAR(45) NULL," +
-                "  lastName VARCHAR(45) NULL," +
-                "  age TINYINT NULL)";
         Session session = Util.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        int result = session.createSQLQuery(query)
+        int result = session.createSQLQuery("CREATE TABLE IF NOT EXISTS users (" +
+                        "  id INT PRIMARY KEY AUTO_INCREMENT," +
+                        "  name VARCHAR(45) NULL," +
+                        "  lastName VARCHAR(45) NULL," +
+                        "  age TINYINT NULL)")
                 .executeUpdate();
 
         transaction.commit();
@@ -35,8 +34,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = Util.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        String sql = "DROP TABLE IF EXISTS users";
-        int result = session.createSQLQuery(sql)
+        int result = session.createSQLQuery("DROP TABLE IF EXISTS users")
                 .executeUpdate();
 
         transaction.commit();
@@ -58,8 +56,8 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
         Session session = Util.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        String sql = "delete User where id = :id";
-        int result = session.createQuery(sql)
+
+        int result = session.createQuery("delete User where id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
         transaction.commit();
