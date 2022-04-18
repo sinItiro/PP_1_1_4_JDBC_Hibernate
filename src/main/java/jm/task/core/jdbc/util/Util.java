@@ -8,8 +8,6 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class Util {
